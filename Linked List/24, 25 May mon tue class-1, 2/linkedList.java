@@ -243,13 +243,13 @@ public class linkedList {
     // }
 
     // ====================================================
-    // 26 May, 2021 wed
+    // 26 May, 2021 wed class-3
     // ====================================================
 
     // Questions.
 
     // -----------------------------------------------------
-    // odd even in a LinkedList
+    // odd even in a LinkedList (on portal)
     public void oddEven() {
         if (this.size == 0 || this.size == 1)
             return;
@@ -289,11 +289,43 @@ public class linkedList {
         even.next = null;
     }
     // -----------------------------------------------------
-    // Remove Duplicates In A Sorted Linked List
-    
+    // Remove Duplicates In A Sorted Linked List (on portal)
+    public void removeDuplicates(){
+        // write your code here
+          if(this.head == null || this.head.next == null)
+              return;
+          
+          Node dummy = new Node(-1);
+          Node dp = dummy;
+          
+          dp.next = head;
+          dp = dp.next;
+          
+          Node curr = this.head.next;
+          int size = 0;
+          while(curr != null){
+              while(curr != null && dp.data == curr.data){
+                  Node forw = curr.next;
+                  curr.next = null;
+                  curr = forw;
+              }
+              
+              dp.next = curr;
+              
+              if(curr != null){
+                  dp = dp.next;
+                  curr = curr.next;
+                  size++;
+              }
+          }
+          
+          this.head = dummy.next;
+          this.tail = dp;
+          dummy.next = null;
+      }
     
     // -----------------------------------------------------
-    // Reverse Linked List (pointer Iterative)
+    // Reverse Linked List (pointer Iterative) (on portal)
     public void reversePI() {
         // write your code here
         if (this.head == null || this.head.next == null)
@@ -313,6 +345,113 @@ public class linkedList {
 
         this.tail = this.head;
         this.head = prev;
+    }
+
+    // ====================================================
+    // 31 May, 2021 mon class-4
+    // ====================================================
+
+    // -----------------------------------------------------
+    // Add two linkedList (on portal)
+    public static ListNode reverseList(ListNode root){
+        if(root == null || root.next == null)
+            return root;
+            
+        ListNode prev = null;
+        ListNode curr = root;
+        while(curr != null){
+            ListNode forw = curr.next; // Backup
+            
+            curr.next = prev; // Link
+            
+            prev = curr; // Move
+            curr = forw;
+        }
+        
+        return prev;
+    }
+    
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        l1 = reverseList(l1);
+        l2 = reverseList(l2);
+        
+        ListNode dummy = new ListNode(-1);
+        
+        ListNode c1 = l1, c2 = l2, prev = dummy;
+        int carry = 0;
+        while( c1 != null || c2 != null || carry != 0 ){
+            int sum = carry + (c1 != null ? c1.val : 0) + (c2 != null ? c2.val : 0);
+
+            carry = sum / 10;
+            sum %= 10;
+            
+            prev.next = new ListNode(sum); // new node jaa pai bhi bani hai uska address return karta hai 
+            
+            prev = prev.next;
+            
+            if(c1 != null)
+                c1 = c1.next;
+                
+            if(c2 != null)
+                c2 = c2.next;
+        }
+        
+        ListNode head = dummy.next;
+        head = reverseList(head);
+        
+        dummy.next = null;
+        
+        l1 = reverseList(l1);
+        l2 = reverseList(l2);
+        
+        return head;
+    }
+
+    // -----------------------------------------------------
+    // Add two LinkedList (on portal)
+    public static int addTwoLinkedList_02(Node one, int s1, Node two, int s2, LinkedList ans){
+        if(one == null && two == null)
+            return 0;
+
+        int carry = 0;
+        if(s1 > s2){
+            carry = addTwoLinkedList_02(one.next, s1 - 1, two, s2, ans);
+            int sum = carry + one.data;
+            carry = sum / 10;
+            sum %= 10;
+
+            ans.addFirst(sum);
+        } else {
+            carry = addTwoLinkedList_02(one.next, s1 - 1, two.next, s2 - 1, ans);
+            int sum = carry + one.data + two.data;
+            carry = sum / 10;
+            sum %= 10;
+
+            ans.addFirst(sum);
+        }
+
+        return carry;
+    }
+
+    public static LinkedList addTwoLists(LinkedList one, LinkedList two){
+
+        int s1 = one.size();
+        int s2 = two.size();
+
+        if(s1 < s2){
+            LinkedList temp = one;
+            one = two;
+            two = temp;
+        }
+
+        LinkedList ans = new LinkedList();
+        int carry = addTwoLinkedList_02(one.head, one.size(), two.head, two.size(), ans);
+
+        if(carry == 1)
+            ans.addFirst(carry);
+
+        return ans;
     }
 
     // public static void main(String[] args) {

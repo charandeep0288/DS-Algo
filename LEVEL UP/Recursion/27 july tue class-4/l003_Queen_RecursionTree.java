@@ -4,8 +4,7 @@ public class l003_Queen_RecursionTree {
     // Queen_Set. ===========================================
 
     // --------------------------------------------------
-    // tnb : total no. boxes, bno : box no., tnq : total No. queen, qpsf : queen
-    // placed soo far, asf : answer soo far
+    // tnb : total no. boxes, bno : box no., tnq : total No. queen, qpsf : queen placed soo far, asf : answer soo far
     public static int queenCombination1D(int tnb, int bno, int tnq, int qpsf, String asf) {
         if (qpsf > tnq) {
             System.out.println(asf);
@@ -16,9 +15,7 @@ public class l003_Queen_RecursionTree {
 
         for (int b = bno; b <= tnb; b++) { // b -> box
             // count += queenCombination1D(tnb, b + 1, tnq, qpsf + 1, asf + "b" + b + "q" + qpsf + " ");
-            count += queenCombination1D(tnb, b + 1, tnq, qpsf + 1, asf + b + " "); // // asf + b -> yaa humara coin
-                                                                                   // chain mai single combination jasa
-                                                                                   // chala gaa
+            count += queenCombination1D(tnb, b + 1, tnq, qpsf + 1, asf + b + " "); // // asf + b -> yaa humara coin chain mai single combination jasa chala gaa
         }
 
         return count;
@@ -191,9 +188,8 @@ public class l003_Queen_RecursionTree {
 
     public static void main(String[] args) {
         queen1D();
-        queen2D();
+        // queen2D();
     }
 }
 
-// javac l003_Queen_RecursionTree.java && java l003_Queen_RecursionTree >
-// output.txt
+// javac l003_Queen_RecursionTree.java && java l003_Queen_RecursionTree > output.txt

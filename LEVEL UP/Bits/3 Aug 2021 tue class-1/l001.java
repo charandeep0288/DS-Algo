@@ -82,19 +82,51 @@ public class l001 {
         return ans;
     }
 
+    // 338.
+    public int[] countBits(int n){
+        
+        int[] arr = new int[n + 1];
+        for(int i = 0 ; i <= n ; i++){
+            arr[i] = arr[i & (i - 1)] + 1;
+        }
 
+        return arr;
+    }
+
+    // 268
+    public int missingNumber(int[] nums){
+        int ans = 0;
+        int i = 0;
+        for( int ele : nums){
+            ans ^= ele;
+            ans ^= i;
+            i++;
+        }
+
+        return ans ^ i;
+    }
+
+    public int missingNumber_02(int[] nums){
+        int ans = 0, n = nums.length;
+        for(int ele : nums){
+            ans += ele;
+        }
+
+        return ((n * (n - 1)) / 2) - ans;
+    }
     // 
     // for (int i=1; i<=num; i++) f[i] = f[i >> 1] + (i & 1);
 
+    // HW -> leetcode 190
     public static void main(String[] args){
 
-        int n1 = 7;
-        // n1 = !n1; // not allowed, compilatoin error
+        int n1 = 0;
+        // n1 = !n1; // not allowed in java, compilatoin error, but allowed in C++
         // n1 = ~n1; // allowed hai
         
         int n = 15;
         int k = 4;
-        System.out.println(onToOff(n, k));
+        // System.out.println(onToOff(n, k));
 
     }
 }

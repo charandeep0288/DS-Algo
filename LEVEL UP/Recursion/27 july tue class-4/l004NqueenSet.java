@@ -213,6 +213,40 @@ public class l004NqueenSet{
     }
 
 
+    // 4 Aug wed bits class-2
+    // ---------------------------------------------------------------
+    int c = 0, d = 0, ad = 0;
+    
+    public int nQueenOptimized_07(int n, int m, int floor, int tnq){
+        if(tnq == 0){
+            return 1;
+        }
+        
+        int count = 0;
+        
+        for(int room = 0 ; room < m ; room++){
+            int row = floor, col = room;
+            if((c & (1 << col)) == 0 && (d & (1 << (row + col))) == 0 && (ad & (1 << (row - col + m -1))) == 0){
+                c ^= (1 << col);
+                d ^= (1 << (row + col));
+                ad ^= (1 << (row - col + m - 1));
+                
+                count += nQueenOptimized_07(n, m, floor + 1, tnq - 1);
+                
+                c ^= (1 << col);
+                d ^= (1 << (row + col));
+                ad ^= (1 << (row - col + m - 1));
+            }
+        }
+        return count;
+    }
+    public int totalNQueens(int n) {
+        
+        return nQueenOptimized_07(n, n, 0, n);
+    }
+
+
+    
     public static void nQueen(){
         // int n = 4, tnq = 4; // tnq: total number of queen
         // boolean[][] box = new boolean[n][n];

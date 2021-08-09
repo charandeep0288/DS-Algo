@@ -409,7 +409,7 @@ public class linkedList {
     }
 
     // -----------------------------------------------------
-    // Add two LinkedList (on portal)
+    // Add two LinkedList (on portal) recursive solution 
     public static int addTwoLinkedList_02(Node one, int s1, Node two, int s2, LinkedList ans){
         if(one == null && two == null)
             return 0;

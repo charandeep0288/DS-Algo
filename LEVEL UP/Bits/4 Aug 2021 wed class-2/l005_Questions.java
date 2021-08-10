@@ -112,7 +112,7 @@ public class l005_Questions{
         return false;
     }
 
-    public void solveSudokuUsingBits(char[][] borad){
+    public void solveSudokuUsingBits(char[][] board){
         ArrayList<pair> arr = new ArrayList<>();
         row = new int[9];
         col = new int[9];
@@ -120,7 +120,7 @@ public class l005_Questions{
 
         for(int i = 0 ; i < 9 ; i++){
             for(int j = 0 ; j < 9 ; j++){
-                if(borad[i][j] == '.'){
+                if(board[i][j] == '.'){
                     arr.add(new pair(i, j)); // i * 9 + j
                 } else{
                     int mask = (1 << (board[i][j] - '0'));
@@ -131,7 +131,7 @@ public class l005_Questions{
             }
         }        
 
-        solveSudokuUsingBits(borad, 0, arr);
+        solveSudokuUsingBits(board, 0, arr);
     }
 
     // leetcode 37
@@ -208,7 +208,7 @@ public class l005_Questions{
 
     // --------------------------------------------------
     // 2 set of equal sum
-    public static int equalSet(int[] arr, int idx, int sum1){
+    public static int equalSet(int[] arr, int idx, int sum1, String set1, int sum2, String set2){
         if(idx == arr.length){
             if(sum1 == sum2) {
                 System.out.println(set1 + " = " + set2);
@@ -244,6 +244,68 @@ public class l005_Questions{
 
         equalSet(arr, 0, sum / 2, ans);
         System.out.println(ans);
+    }
+
+
+    // --------------------------------------------
+    public static void ksubSets(int[] arr, int idx, int[] subsetSum, ArrayList<ArrayList<Integer>> ans){
+        if(idx == arr.length){
+            int s = subsetSum[0]; // first set ka sum nikal kia, baad mai usa compare karna kaa lia
+            for(int ele : subsetSum) {
+                if(s != ele){
+                    return;
+                }
+            }
+
+            for(ArrayList<Integer> a : ans)
+                System.out.print(a + " ");
+            System.out.println();
+
+            return;
+        }
+        for(int k = 0 ; k < subsetSum.length ; k++){
+            ArrayList<Integer> set = ans.get(k);
+            set.add(arr[idx]);
+            subsetSum[k] += arr[idx];
+
+            ksubSets(arr, idx + 1, subsetSum, ans);
+
+            subsetSum[k] -= arr[idx];
+            set.remove(set.size() - 1);
+            
+            if(set.size() == 0)
+                break;
+        }
+    }
+
+    public static void equalSet_01(int[] arr, int k){
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+
+        for(int i = 0 ; i < k ; i++)
+            ans.add(new ArrayList<>());
+
+        int sum = 0;
+        for(int ele : arr)
+            sum += ele;
+
+        if((sum & k) != 0)
+            return;
+
+        int[] sumArray = new int[k];
+        ksubSets(arr, 0, sumArray, ans);
+        System.out.println(ans);
+    }
+
+    // ------------------------------------------
+    // kPartition (on Portal)
+    public static void kPartition(int num, int TotalNum, ArrayList<ArrayList<Integer>> ans ){
+
+
+        for(ArrayList<Integer> a : ans){
+            a.add(num);
+
+            kPartition(num + 1, TotalNum, ans);
+        }
     }
 
 

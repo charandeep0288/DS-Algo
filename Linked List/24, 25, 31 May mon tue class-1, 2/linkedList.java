@@ -454,6 +454,133 @@ public class linkedList {
         return ans;
     }
 
+    // ----------------------------------------------
+    // Reverse Linked List (pointer - Recursive) (on portal)
+    // ---------- soln 1 ---------------
+    // private Node reversePRHelper(Node node){
+    //   // write your code here
+    //     if(node.next == null)
+    //         return node;
+        
+    //     Node reverseNode = reversePRHelper(node.next);
+    //     reverseNode.next = node;
+        
+    //     return node;
+    // }
+
+    // public void reversePR(){
+    //   // write your code here
+        
+    //     Node reverseNode = reversePRHelper(head);
+    //     reverseNode.next = null;
+        
+    //     this.head = this.tail;
+    //     this.tail = reverseNode;
+    // }
+    
+    
+    // ------------------------------------------------------------
+    // ---------- soln 2 ---------------
+    private void reversePRHelper(Node node){
+        if(node.next == null)
+            return;
+            
+        reversePRHelper(node.next);
+        Node nextNode = node.next;
+        nextNode.next = node; // address dal raha hia node kaa
+    }
+    
+    public void reversePR(){
+        reversePRHelper(head);
+        
+        this.head.next = null; // last vala link break kar dia  
+        
+        Node temp = this.head;
+        this.head = this.tail;
+        this.tail = temp;
+    }
+
+
+    // -----------------------------------------------
+    // display reverse linkedlist (recursive solution) (on portal) 
+    private void displayReverseHelper(Node node){
+        // write your code here
+        if(node == null)
+            return;
+        
+        displayReverseHelper(node.next);
+        System.out.print(node.data + " ");
+    }
+
+    public void displayReverse(){
+      displayReverseHelper(head);
+      System.out.println();
+    }
+
+    // ---------------------------------------------
+    // fold a linked list (on portal)
+    public Node midNode(Node node){
+        if(node == null || node.next == null)
+            return node;
+            
+        Node slow = node, fast = node;
+        
+        while(fast.next != null && fast.next.next != null ){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        return slow;
+    }
+    
+    public Node reverse(Node node){
+        if(node == null || node.next == null)
+            return node;
+        
+        Node curr = node, prev = null;
+        while(curr != null){
+            Node forw = curr.next; // backup
+            
+            curr.next = prev; // link
+            
+            prev = curr; // move
+            curr = forw;
+        }
+        
+        return prev;
+    }
+
+    public void fold() {
+      // write your code here
+      Node mid = midNode(this.head);
+      Node nhead = mid.next; // new head for second linked list
+      mid.next = null;
+      
+      nhead = reverse(nhead);
+      
+      Node c1 = this.head, c2 = nhead;
+      while(c2 != null){
+          Node f1 = c1.next, f2 = c2.next;
+          
+          c1.next = c2;
+          c2.next = f1;
+          
+          c1 = f1;
+          c2 = f2;
+      }
+      
+      if(size() % 2 != 0) // odd length ki ll(linked list) ka case mai tail mid kaa next hai
+        this.tail = mid;  
+      
+      else                // even length ki ll ka case mai tail mid hi hai
+        this.tail = mid.next;
+        
+       // aur head set hi hai usa chadrna ki jarurat nahi 
+    }
+
+
+
+    // ---------------------------------------------
     // public static void main(String[] args) {
     // LinkedList ll = new LinkedList();
     // int data = 10;

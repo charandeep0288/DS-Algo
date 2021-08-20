@@ -96,6 +96,96 @@ public class l001 {
         c1.next = rhead;
     }
 
+    public static ListNode segregateEvenOdd(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+        
+        ListNode even = new ListNode(-1), odd = new ListNode(-1), ep = even, op = odd, curr = head;
+        while(curr != null){
+            if((curr.val & 1) == 0){ // even 
+                ep.next = curr;
+                ep = ep.next;
+            } else { // odd
+                op.next = curr;
+                op = op.next;
+            }
+
+            curr = curr.next;
+        }
+
+        ep.next = op.next = null;
+        ep.next = odd.next;
+
+        return even.next;
+    }
+
+    public static ListNode segregate012(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+
+        ListNode zero = new ListNode(-1), one = new ListNode(-1), two = new ListNode(-1), zp = zero, op = one, tp = two, curr = head;
+
+        while(curr != null){
+            if(curr.val == 0){
+                zp.next = curr;
+                zp = zp.next;
+            } else if(curr.val == 1){
+                op.next = curr;
+                op = op.next;
+            } else {
+                tp.next = curr;
+                tp = tp.next;
+            }
+            curr = curr.next;
+        }
+
+        zp.next = op.next = tp.next = null;
+
+        op.next = two.next;
+        zp.next = one.next;
+
+        return zero.next;
+    }
+
+    public static ListNode mergeSort(ListNode head){
+        if(head == null || head.next == null)
+            return head;
+
+        ListNode mid = midNode(head);
+        ListNode nHead = mid.next;
+        mid.next = null;
+
+        return mergeTwoLists(mergeSort(head), mergeSort(nHead));
+    }
+
+    public static ListNode mergeKLists(ListNode[] lists, int si, int ei){
+        if(si == ei)
+            return lists[si];
+
+        int mid = (si + ei) / 2;
+        ListNode leftList = mergeKLists(lists, si, mid);
+        ListNode rightList = mergeKLists(lists, mid + 1, ei);
+
+        return mergeTwoLists(leftList, rightList);
+    }
+
+    public static ListNode mergeKLists(ListNode[] lists){
+        if(lists.length == 0)
+            return null;
+
+        return mergeKLists(lists, 0, lists.length - 1);
+    }
+
+    private ListNode th = null, tt = null;
+    private static ListNode addFirstNode(ListNode node){
+
+    }
+
+
+    public static ListNode reverseInRange(ListNode haed, int n, int m){
+        
+    }
+
     public static void main(String[] args) {
 
     }

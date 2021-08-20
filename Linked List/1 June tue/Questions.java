@@ -17,6 +17,21 @@ public class Questions {
         }
     }
 
+    public static ListNode midNode(ListNode head) {
+        if(head == null || head.next == null)
+            return head;
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        
+        while(fast.next != null && fast.next.next != null){
+            slow =slow.next;
+            fast = fast.next.next;
+        }
+        
+        return slow;
+    }
+
     // -----------------------------------------------------------------
     // leetcode 21 Merge tow Sorted Array
 
@@ -75,5 +90,34 @@ public class Questions {
 
         return dummy.next;
     }
+
+    public static ListNode removeNthFromEnd(ListNode head, int n){
+        if(head == null)
+            return head;
+
+        ListNode slow = head, fast = head;
+        while(n-- > 0)
+            fast = fast.next;
+
+        if(fast == null){
+            ListNode rnode = slow; // remove node
+            head = head.next;
+            rnode.next = null;
+
+            return head;
+        }
+
+        while(fast.next != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        ListNode rnode = slow.next;
+        slow.next = rnode.next;
+        rnode.next = null;
+
+        return head;
+    }
+
 
 }

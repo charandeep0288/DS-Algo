@@ -186,6 +186,34 @@ public class l001 {
         
     }
 
+    public static ListNode removeNthFromEnd(ListNode head, int n){
+        if(head == null)
+            return head;
+
+        ListNode slow = head, fast = head;
+        while(n-- > 0)
+            fast = fast.next;
+
+        if(fast == null){
+            ListNode rnode = slow; // remove node
+            head = head.next;
+            rnode.next = null;
+
+            return head;
+        }
+
+        while(fast.next != null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        ListNode rnode = slow.next;
+        slow.next = rnode.next;
+        rnode.next = null;
+
+        return head;
+    }
+
     public static void main(String[] args) {
 
     }

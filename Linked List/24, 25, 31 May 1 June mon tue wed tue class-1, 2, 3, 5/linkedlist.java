@@ -1,12 +1,11 @@
-public class linkedList {
+public class linkedlist {
 
     // public static class LinkedList { // agar main() fn iss file mai hi use karna
     // hai tho yaa class likni hogi(and uska andar sara vriable, class & fn of
     // linkedList) with static keyword taki main access kar pai
     private class Node {
         int data = 0;
-        //
-        // next => store address
+        // next => store address next node
         Node next = null; // default value daa de
 
         // constructor
@@ -579,6 +578,58 @@ public class linkedList {
     }
 
 
+    // ==========================================================
+    // 1 June tue Class-5
+    // ==========================================================
+
+    // leetcode 21. Merge Two Sorted List
+    
+    // leetcode 148. SortList (Merge Sort)
+
+    // ------------------------------------------------
+    // Intersection Of LinkedList (on portal)
+    private static int lengthOfLL(Node node){
+        if(node == null)
+            return 0;
+
+        Node curr = node;
+        int len = 0;
+        while(curr != null){
+            curr = curr.next;
+            len++;
+        }
+
+        return len;
+    }
+
+    private static int findIntersection(Node one, Node two){
+        
+        int a = lengthOfLL(one);
+        int b = lengthOfLL(two);
+
+        Node biggerListHead = a > b ? one : two; // pahli ll ko badra man raha hai
+        Node smallerListHead = b < a ? two : one;
+        int diff = Math.abs(a - b); // Math.max(a, b) - Math.min(a, b); difference of both the LL
+
+        while(diff-- > 0) // joo difference hai dono LL mia, agar same hai hai tho badri vali LL ko uss differnrence se chala doo
+            biggerListHead = biggerListHead.next;
+
+        // dono ll ko same speed se chalya 
+        while(biggerListHead != smallerListHead){ // null vala case bhi handle hai idar, but last mai return karta hua null vala check lagana hoga
+            biggerListHead = biggerListHead.next;
+            smallerListHead = smallerListHead.next;
+        }
+
+        // smallerListNode OR biggerListNode dono mai se kisi pai bhi check kar sakta hai
+        return smallerListHead != null ? smallerListHead.data : -1; // ll agar intersect nahi hoo rahi
+    }
+
+    public static int findIntersection(linkedlist one, linkedlist two){
+        return findIntersection(one.head, two.head);
+    }
+
+    // ---------------------------------------------------
+    // 
 
     // ---------------------------------------------
     // public static void main(String[] args) {

@@ -629,9 +629,57 @@ public class linkedlist {
     }
 
     // ---------------------------------------------------
-    // 
+    // is LinkedList Palindrome (iterative solution) (on portal)
 
-    // ---------------------------------------------
+    // public Node midNode(Node head){}
+    // public Node reverse(Node head){}
+    
+    public boolean IsPalindrome(){
+        Node mid = midNode(head); // yaa "head" kaa huma ll vali class mai access hoga portal vala Questions mai
+        Node nHead = mid.next;
+        mid.next = null;
+
+        nHead = reverse(nHead);
+        Node c1 = head, c2 = nHead;
+        boolean isPalindrome = true;
+        while(c2 != null){ // c2 pai hi null ka check lagya gai sirf kio ki c2 pointer vali ll badri hogi yaa fir equal size ki hogi c1 pointer vali ll kaa kio ki humna mid hi asa nikala hai
+            if(c1.data != c2.data){
+                isPalindrome = false;
+                break; 
+            }  
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+
+        // joo linkedList ko humna karab kia hai usa thik karna ki jimadari bhi humari hai
+        nHead = reverse(nHead);
+        mid.next = nHead;
+
+        return isPalindrome;
+    } 
+
+    // -------------------------------------------
+    // Is Palindrome LinkedList (on portal) (recursive sol)
+    Node ptr;
+    public boolean IsPalindrome(Node node){
+        if(node == null)
+            return true;
+
+        if(!IsPalindrome(node.next)) 
+            return false;
+        if(node.data != ptr.data)
+            return false;
+        
+        ptr = ptr.next;
+        return true;
+    }
+
+    public boolean IsPalindrome(){
+        ptr = head; // 
+        return IsPalindrome(head);
+    }
+
+    // --------------------------------------------
     // public static void main(String[] args) {
     // LinkedList ll = new LinkedList();
     // int data = 10;

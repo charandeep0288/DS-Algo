@@ -145,7 +145,7 @@ public class Questions {
         return mergeTwoSortedLists(leftSortedList, rightSortedList);
     }
 
-     // ------------------------------------------------
+    // ------------------------------------------------
     // Intersection Of LinkedList (on portal)
     private static int lengthOfLL(Node node){
         if(node == null)
@@ -189,5 +189,59 @@ public class Questions {
     }
 
     // ---------------------------------------------------
-    // 
+    // is LinkedList Palindrome (iterative solution)
+    public Node midNode(Node head){
+        if(head == null || head.next == null)
+            return head;
+            
+        Node slow = head, fast = head;
+        while(fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        return slow;
+    }
+    
+    public Node reverse(Node head){
+        if(head == null || head.next == null)
+            return head;
+            
+        Node prev = null, curr = head;
+        while(curr != null){
+            Node forw = curr.next; // backup
+            
+            curr.next = prev; // move
+            
+            prev = curr; // move
+            curr = forw;
+        }
+        head = prev;
+        
+        return head;
+    }
+    
+    public boolean IsPalindrome(){
+        Node mid = midNode(head); // yaa "head" kaa huma ll vali class mai access hoga portal vala Questions mai
+        Node nHead = mid.next;
+        mid.next = null;
+
+        nHead = reverse(nHead);
+        Node c1 = head, c2 = nHead;
+        boolean isPalindrome = true;
+        while(c2 != null){ // c2 pai hi null ka check lagya gai sirf kio ki c2 pointer vali ll badri hogi yaa fir equal size ki hogi c1 pointer vali ll kaa kio ki humna mid hi asa nikala hai
+            if(c1.data != c2.data){
+                isPalindrome = false;
+                break; 
+            }  
+            c1 = c1.next;
+            c2 = c2.next;
+        }
+
+        // joo linkedList ko humna karab kia hai usa thik karna ki jimadari bhi humari hai
+        nHead = reverse(nHead);
+        mid.next = nHead;
+
+        return isPalindrome;
+    } 
 }

@@ -104,18 +104,19 @@ public class binaryTree {
 
 
     // -----------------------------------------------
-    // TILT OF A BINARY TREE
-    public stati c class tiltPair{
+    // first solution
+    // TILT OF A BINARY TREE (leetcode 563)
+    public static class tiltPair{
         int tiltSF = 0; // tilt so far
         int sum = 0;
     }
 
-    public tiltPair findTilt( TreeNode root ){
+    public tiltPair findTilt_( TreeNode root ){
         if( root == null )
             return new tiltPair();
 
-        tiltPair left = findTilt( root.left );
-        tiltPair right = fingTilt( root.right );
+        tiltPair left = findTilt_( root.left );
+        tiltPair right = findTilt_( root.right );
 
         tiltPair myAns = new tiltPair();
 
@@ -123,18 +124,23 @@ public class binaryTree {
         myAns.sum = left.sum + right.sum + root.val;
         return myAns;
     }
+    
+    public int findTilt(TreeNode root) {
+        return findTilt_(root).tiltSF;
+    }
 
     // ------------------------------------------------
-    // { tilt, sum }
-    public int[] findTilt2( TreeNode node ){
+    // second solution
+    // { tilt, sum } // like pair of c++
+    public int[] findTilt2( TreeNode root ){ 
         if( root == null )
-            return new int[2];
+            return new int[2]; // yaa array vala kam tab kara gai jab mara pair class (in 1st solution) kaa sara variable ik hi datatype kaa hai (like int in this case).
 
         int[] left = findTilt2( root.left );
         int[] right = findTilt2( root.right );
 
         int [] myAns = new int[2];
-        myAns[0] = left[0] + right[0] + Math.abs(left[1] + right[1]);
+        myAns[0] = left[0] + right[0] + Math.abs(left[1] - right[1]);
         myAns[1] = left[1] + right[1] + root.val;
         return myAns;
     }
@@ -145,4 +151,5 @@ public class binaryTree {
 
     // ------------------------------------------------
     // DIAMETER OF A BINARY TREE
+
 }

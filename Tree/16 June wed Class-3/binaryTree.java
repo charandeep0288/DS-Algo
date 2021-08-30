@@ -1,4 +1,5 @@
 public class binaryTree {
+
     public static class Node{
         int data;
         Node left;
@@ -13,6 +14,20 @@ public class binaryTree {
         Node( int data ){
             this(data, null, null);
         }
+    }
+
+    // for leetcode Questions
+    public class TreeNode {
+             int val;
+             TreeNode left;
+             TreeNode right;
+             TreeNode() {}
+             TreeNode(int val) { this.val = val; }
+             TreeNode(int val, TreeNode left, TreeNode right) {
+                 this.val = val;
+                 this.left = left;
+                 this.right = right;
+             }
     }
 
     //---------------------------------------------
@@ -145,11 +160,105 @@ public class binaryTree {
         return myAns;
     }
 
-    public int findTilt( TreeNode root ){
-        return findTilt2(root)[0];
-    }
+    // public int findTilt( TreeNode root ){
+    //     return findTilt2(root)[0];
+    // }
 
     // ------------------------------------------------
-    // DIAMETER OF A BINARY TREE
+    // leetcode 543 DIAMETER OF A BINARY TREE
+    public int height(TreeNode node){
+        return (node == null) ? -1 : Math.max(height(node.left), height(node.right)) + 1;
+    }
 
+    // -------- O(n^2) solution (slow hai solution) ---------
+    public int diameterOfBinaryTree_(TreeNode root){
+        if(root == null)
+            return 0;
+        
+        int ld = diameterOfBinaryTree_(root.left); // left diameter 
+        int rd = diameterOfBinaryTree_(root.right); // right diameter
+        
+        int lh = height(root.left); // left sub tree height
+        int rh = height(root.right); // right sub tree height 
+        
+        return Math.max(Math.max(ld, rd), lh + rh + 2);
+    }
+
+
+    // ---------- O(n) solution -----------
+    // { diameter, height }
+    public int[] diameterOfBinaryTree_02(TreeNode root){
+        if(root == null)
+            return new int[]{0, -1}; // for no node its diameter -> 0, height -> -1
+
+        int[] ld = diameterOfBinaryTree_02(root.left);
+        int[] rd = diameterOfBinaryTree_02(root.right);
+
+        int[] myAns = new int[2];
+        myAns[0] = Math.max(Math.max(ld[0], rd[0]), ld[1] + rd[1] + 2);
+        myAns[1] = Math.max(ld[1], rd[1]) + 1;
+
+        return myAns;
+    }
+    
+    // --------- 3rd solution with static variable ----------
+    // bas yaa thori se memory extra lata hai yaa static vala solution
+    int diameter = 0; // static variable
+    public int diameterOfBinaryTree_03(TreeNode root){
+        if(root == null)
+            return -1;
+        
+        int ld = diameterOfBinaryTree_03(root.left);
+        int rd = diameterOfBinaryTree_03(root.right);
+
+        diameter = Math.max(diameter, ld + rd + 2); // iss line koo hata dai tho yaa code height of binary tree kaa hai
+        return Math.max(ld, rd) + 1;
+    }
+
+    
+    public int diameterOfBinaryTree(TreeNode root) {
+        // return diameterOfBinaryTree_(root); // 1st solution O(n^2)
+        
+        // return diameterOfBinaryTree_02(root)[0]; // 2nd solution O(n) 
+
+        diameterOfBinaryTree_03(root); // 3rd solution with static variable 
+        return diameter;
+    }
+
+
+    // -----------------------------------------------------
+    // largest BST (on portal)
+    public static class lBSTPair{ // largest BST pair
+        boolean isBST = true;
+        int max = -(int) 1e9;
+        int min = (int) 1e9;
+
+        int MaxSize = 0; // max size joo BST exist karta hai
+        Node MaxBSTNode = null; // woo node kaa address joo largerst BST hai
+    }
+
+    public static lBSTPair largestBST(Node node){
+        if(node == null)
+            return new lBSTPair();
+
+        lBSTPair left = largestBST(node.left);
+        lBSTPair right = largestBST(node.right);
+
+        lBSTPair myAns = new lBSTPair();
+        if(left.isBST && right.isBST && left.max < node.data && node.data > right.min){
+            myAns.isBST = true;
+            myAns.min = Math.min(left.min, node.data);
+            myAns.max = Math.max(right.max, node.data);
+
+            myAns.MaxSize = left.MaxSize + right.MaxSize + 1;
+            myAns.MaxBSTNode = node;
+        } else {
+            myAns.isBST = false;
+            // max & min ko set karna ki jarurat nahi, karan chaha tho kar sakta hai 
+            myAns.MaxSize = Math.max(left.MaxSize, right.MaxSize);
+            myAns.MaxBSTNode = left.MaxSize > right.MaxSize ? left.MaxBSTNode : right.MaxBSTNode;
+        }
+
+        return myAns;
+    }
 }

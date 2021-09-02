@@ -1,5 +1,23 @@
-public class binaryTree {
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class l002_BST {
     
+    public static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data, Node left, Node right) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
+
+        Node(int data){
+            this(data, null, null);
+        }
+    }
 
     // ------------------------------------------------
     // T: O(n)  S: O(1)
@@ -7,24 +25,33 @@ public class binaryTree {
         return node == null ? 0 : size(node.left) + size(node.right) + 1;
     } 
 
-    // T: O(n)  S: O(1)
-    public static int maximum(Node node){
+    // ------------------------------------------------
+    // T: O(n), S: O(1) 
+    // (height no. of edges ki terms mai nikal raha hai)
+    public static int height(Node node){
+        return node == null ? -1 : Math.max(height(node .left), height(node.right)) + 1;
+    }
+    // ------------------------------------------------
+    // T: O(log n)  S: O(1)
+    public static int maximum(Node node){ // yaa ensure karka call lagya iss function ko ki root null naa hoo
         while(node.right != null)
-            node = node.right;
+            node = node.right; // right most node of BST is maximum valued node
         
-        return node.root;
+        return node.data;
     }
 
-    // T: O(n)  S: O(1)
-    public static int minimum(Node node){
+    // ------------------------------------------------
+    // T: O(log n)  S: O(1)
+    public static int minimum(Node node){ // yaa ensure karka call lagya iss function ko ki root null naa hoo
         while(node.left != null)
-            node = node.left;
+            node = node.left; // left most value of BST is minimum valued node of BST
 
         return node.data;
     }
 
-    // T: O(n)  S: O(1)
-    public static int find(Node node){
+    // ------------------------------------------------
+    // T: O(log n)  S: O(1)
+    public static boolean find(Node node, int data){ // work like BINARY SEARCH
         while(node != null){
             if(node.data == data)
                 return true;
@@ -38,23 +65,10 @@ public class binaryTree {
     }
 
     // ------------------------------------------------
-    // 
-    // public static int sum(Node node){
-    //     int sum = 0;
-    //     while(node != null){
-    //         sum = sum + node.data; 
-    //         if(node.left != null)
-    //             node = node.left;
-
-    //         if(node.right != null)
-    //             node = node.right;
-    //     }
-
-    //     return sum;
-    // } 
-
+    // yaa sum vala question iteratively possible nahi hai 
+    // T: O(n), S: O(1)
     public static int sum(Node node){
-        return node == null ? 0 : sum(node.left) + sum(node.right);
+        return node == null ? 0 : sum(node.left) + sum(node.right) + node.data;
     }
 
 
@@ -62,7 +76,7 @@ public class binaryTree {
     // height of BST == levels of BST
     // T: O(log n)  S: O(1) 
     public static ArrayList<Node> nodeToRootPath(Node node, int data){
-        ArrayList<Node> list = new ArrayList<Node>();
+        ArrayList<Node> list = new ArrayList<>(); 
         boolean flag = false;
         while(node != null){
             list.add(node);
@@ -76,11 +90,12 @@ public class binaryTree {
                 node = node.left;
         }
 
-        if(!flag) // flag false mila, matlab data nahi mila huma tree mai tho joo ArrayList bhari hai usa khali kara gai then return kara gai
+        if(!flag) // flag false mila, matlab data nahi mila huma tree mai tho joo ArrayList bhari hai usa khali kara gai, then return kara gai
             list.clear();
 
-        Collection.reverse(list);
-            return list;
+        // RootToNodePath kaa lia hum list ko reverse nahi kara gai
+        Collections.reverse(list); // nodeToRootPath nikalna hai, naa ki RootToNodePath iss liya ArrayList ko reverse kar raha hai
+        return list;
     }
 
 
@@ -93,8 +108,8 @@ public class binaryTree {
                 node = node.right;
             else if(node.data > d1 && node.data > d2)
                 node = node.left;
-            else{
-                lca = node.data;
+            else { // decide nahi kar paa raha ki data kaha mila gaa tho matlab yaa vali node hi humari LCA node hai
+                lca = node.data; // lca mil gya 
                 break;
             }
         }
@@ -103,7 +118,7 @@ public class binaryTree {
     }
 
     // -----------------------------------------------
-    // lr - left range , rr - right range
+    // lr -> left range , rr -> right range
     public static void printInRange(Node node, int lr, int rr){
         if(node == null)
             return;

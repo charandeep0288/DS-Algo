@@ -57,7 +57,7 @@ public class Main {
             left[1].next = pivotNode;
             ft = right[1];
         } else if(left[0] == null && right[0] == null){
-            fh = ft = pivotNode;
+             fh = ft = pivotNode;
         } else if(left[0] == null) {
             fh = pivotNode;
             pivotNode.next = right[0];

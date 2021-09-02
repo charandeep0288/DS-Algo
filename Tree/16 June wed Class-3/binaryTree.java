@@ -230,8 +230,8 @@ public class binaryTree {
     // largest BST (on portal)
     public static class lBSTPair{ // largest BST pair
         boolean isBST = true;
-        int max = -(int) 1e9;
         int min = (int) 1e9;
+        int max = -(int) 1e9;
 
         int MaxSize = 0; // max size joo BST exist karta hai
         Node MaxBSTNode = null; // woo node kaa address joo largerst BST hai
@@ -245,20 +245,22 @@ public class binaryTree {
         lBSTPair right = largestBST(node.right);
 
         lBSTPair myAns = new lBSTPair();
-        if(left.isBST && right.isBST && left.max < node.data && node.data > right.min){
+        if(left.isBST && right.isBST && left.max < node.data && node.data < right.min){
             myAns.isBST = true;
-            myAns.min = Math.min(left.min, node.data);
-            myAns.max = Math.max(right.max, node.data);
+            myAns.min = Math.min(left.min, node.data); // yaa check iss liya lagya hai agar left subtree exist hi nahi karta tho min galat set hoo raha tha
+            myAns.max = Math.max(right.max, node.data); // yaa check iss liya lagya hai agar right subtree exist hi nahi karta tho max galat set hoo raha tha
 
             myAns.MaxSize = left.MaxSize + right.MaxSize + 1;
             myAns.MaxBSTNode = node;
         } else {
             myAns.isBST = false;
-            // max & min ko set karna ki jarurat nahi, karan chaha tho kar sakta hai 
+            // max & min ko set karna ki jarurat nahi kio ki mai BST nahi hu, karan chaha tho kar sakta hai 
             myAns.MaxSize = Math.max(left.MaxSize, right.MaxSize);
             myAns.MaxBSTNode = left.MaxSize > right.MaxSize ? left.MaxBSTNode : right.MaxBSTNode;
         }
 
         return myAns;
     }
+
+
 }

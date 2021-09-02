@@ -144,6 +144,11 @@ public class l001_twoPointerSet{
 
 
     // Board Path. =========================================
+
+
+
     public static void main(String[] args){
     }
 }
+
+// javac l001_twoPointerSet.java && java l001_twoPointerSet > output.txt

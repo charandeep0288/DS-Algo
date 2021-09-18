@@ -103,7 +103,7 @@ public class l002_stringSet {
 
 
     // HomeWork ->
-    // 72
+    // leetcode 72 (next class mai kara diya hai)
 
     public static void main(String[] args) {
 

@@ -451,6 +451,26 @@ public class Main {
     } 
     // ------------------------------------------------------
 
+    // ---------------------------------------------------
+     // is LinkedList Palindrome (recursive solution)
+    //  Node ptr;
+    //  public boolean IsPalindrome(Node node){
+    //      if(node == null){
+    //          return true; // ll exist nahi karti tho woo bhi ik palindromic ll hai
+    //      }
+ 
+    //      if(!IsPalindrome(node.next)) return false;
+    //      if(node.data != ptr.data) return false;
+ 
+    //      ptr = ptr.next;
+    //      return true;
+    //  }
+ 
+    //  public boolean IsPalindrome(){
+    //      ptr = head; // ptr ko set iss funtion mai kra gai naa ki globally jab define kar raha hai 'ptr' variable koo
+ 
+    //      return IsPalindrome(head);
+    //  }
   }
 
   public static void main(String[] args) throws Exception {

@@ -232,16 +232,39 @@ public class Questions {
         while(c2 != null){ // c2 pai hi null ka check lagya gai sirf kio ki c2 pointer vali ll badri hogi yaa fir equal size ki hogi c1 pointer vali ll kaa kio ki humna mid hi asa nikala hai
             if(c1.data != c2.data){
                 isPalindrome = false;
-                break; 
+                break; // return nahi kara gaa yaha kio ki ll ko wapis thik bhi karna hai
             }  
             c1 = c1.next;
             c2 = c2.next;
         }
 
-        // joo linkedList ko humna karab kia hai usa thik karna ki jimadari bhi humari hai
+        // YAA KOI INTERVIEWER BOLA GAA NAHI THIK KARNA KOO YAA OBSEVER KARTNA KI CHIZ HAI 
+        // joo linkedList ko humna karab kia hai usa thik karna ki jimadari bhi humari hai (IMP)
         nHead = reverse(nHead);
         mid.next = nHead;
 
         return isPalindrome;
     } 
+ 
+    
+    // ---------------------------------------------------
+     // is LinkedList Palindrome (recursive solution) (on portal)
+     Node ptr;
+     public boolean IsPalindrome(Node node){
+         if(node == null){
+             return true; // ll exist nahi karti tho woo bhi ik palindromic ll hai
+         }
+ 
+         if(!IsPalindrome(node.next)) return false;
+         if(node.data != ptr.data) return false;
+ 
+         ptr = ptr.next;
+         return true;
+     }
+ 
+     public boolean IsPalindrome(){
+         ptr = head; // ptr ko set iss funtion mai kra gai naa ki globally jab define kar raha hai 'ptr' variable koo
+ 
+         return IsPalindrome(head);
+     }
 }

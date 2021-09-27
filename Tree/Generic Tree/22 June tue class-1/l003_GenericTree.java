@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class GenericTree{
+public class l003_GenericTree{
 
     public static class Node{
         int data = 0;
@@ -12,22 +12,25 @@ public class GenericTree{
         }
     }
 
+    // base case lagana ki jaruraj nahi hai kio ki for loop chala gaa hi nahi agar kisi node ka childern nahi hai tho
+    
     // ---------------------------------------------------
+    // height of tree -> in terms of number of edges
     public static int height(Node root){
         int h = -1;
         for(Node child : root.childs)
-            h = Math.max(h, height(child));
+            h = Math.max(height(child), h);
 
-        return h + 1;
+        return h + 1; // agar height mai +1 yaha pai karna chahta hai tho intially height ko (h = -1) rakha gai 
     }
-
-    public static int height2(Node root){
+  
+    public static int height_02(Node root){
         int h = 0;
 
         // for(int i = 0 ; i < root.childs.size() ; i++){
         //     Node child = root.childs.get(i);
         for(Node child : root.childs)
-            h = Math.max(h, height2(child) + 1);
+            h = Math.max(height_02(child) + 1, h);
 
         return h;
     }

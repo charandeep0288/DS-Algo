@@ -53,7 +53,7 @@ public class queue{
         return this.size;
     }
 
-    // dynamic static mai chahia iss lia banya hai 
+    // dynamic queue mai chahia iss lia banya hai 
     public int maxSize(){
         return this.maxSize;
     }

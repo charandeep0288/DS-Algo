@@ -44,7 +44,7 @@ public class stack{
     }
 
     private void stackIsOverflowException() throws Exception{
-        if( this.size == maxSize )
+        if( this.size == this.maxSize )
             throw new Exception("stackIsOverflowException: -1");
     }
 
@@ -53,7 +53,7 @@ public class stack{
         return this.size;
     }
     
-    public int maxSize(){
+    public int maxSize(){ // for dynamic stack
         return this.maxSize;
     }
 

@@ -1,5 +1,7 @@
 public class l001 {
     
+    // 26 oct 2021 tue 
+
     // ------------------------------------------------------
     // log(n)
     public static int binarySearch(int[] arr, int si, int ei, int data) {
@@ -72,7 +74,7 @@ public class l001 {
     // leetcode 34. FindFirst and Last Position of Element in Sorted Array 
     public int[] searchRange(int[] arr, int target) {
         if(arr.length == 0)
-            return new int[]{-1, -1};
+            return new int[]{-1, -1};   
 
         return new int[] {firstIndex(arr, target), lastIndex(arr, target)};
     }
@@ -135,4 +137,8 @@ public class l001 {
     }
      // git add . && git commit -m "26 oct 2021 tue levelup Searching and Sorting class-1" && git push origin main
 
+
+    // 27 oct 2021 wed
+     
+    
 }

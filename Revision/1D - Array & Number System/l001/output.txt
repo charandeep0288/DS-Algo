@@ -1,1 +1,0 @@
-Ceil And Floor Value ==> 42

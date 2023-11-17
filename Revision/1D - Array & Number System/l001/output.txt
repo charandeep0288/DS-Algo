@@ -1,1 +1,1 @@
-Ceil And Floor Value ==> 42
+Ceil And Floor Value ==> 15	10

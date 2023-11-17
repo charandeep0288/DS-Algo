@@ -396,10 +396,10 @@ public class l001 {
   }
 
   // ------------------------------------------------
-  // Q16 Ceil Floor Official 
+  // Q16 Ceil Floor Official / Broken Economy -> O(log(n))
   public static void ceilFloor(int[] arr, int data) {
     int n = arr.length, si = 0, ei = n - 1;
-    int ceil = -1, floor = -1;
+    int ceil = -(int)1e9, floor = (int)1e9;
 
     while(si <= ei) {
       int mid = (si + ei) / 2;
@@ -410,8 +410,9 @@ public class l001 {
         si = mid + 1;
         floor = arr[mid];
       } else {
-        System.out.println("Ceil And Floor Value ==> " + arr[mid]);
-        return;
+        ceil = arr[mid];
+        floor = arr[mid];
+        break;
       }
     }
 

@@ -1,0 +1,2 @@
+Count /of the hit Without hi -> 2
+String hi without hit -> hithit
